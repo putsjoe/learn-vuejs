@@ -1,0 +1,47 @@
+
+
+<body>
+    <script src="vue.js"></script>
+
+    <div id="hello">
+        <p>Message: {{ msg }}</p>
+        <p v-once>This will never change: {{ msg }}</p>
+        
+        <p>{{ htmlmsg }}</p>
+        <p v-html="htmlmsg"></p>
+        <p>Cannot use v-html to compose template partials, components are preferred.</p>
+        <p>Only use HTML interpolation on trusted content and never on user-provided content. Can lead to XSS vulns.</p>
+        <hr>
+        <p v-bind:id="testid">
+            Cant use moustaches in html attribute, instead use v-bind.
+            See the attributes of this p tag.
+        </p>
+        <button v-bind:disabled="isButtonDisabled">Button</button>
+        <p>Boolean attributes - If isButtonDisabled has the value of null, undefined,
+            or false, the disabled attribute will not even be
+            included in the rendered button element.</p>
+        <hr>
+        
+        <p>
+            {{ someval + 4 }}
+        </p>
+        <p>
+            Moustaches (binds) work with JS expressions, only one per bind.
+        </p>
+        <hr>
+        <p>Directives - v-if and v-for for example. See js for $data.seen </p>
+        <p v-if="seen">Now you see me</p>
+        
+        <hr>
+        <a v-on="doSomething"> 
+            example v-on:click, click me. <span v-if="dos">Hello there!</span>
+        </a>
+
+        <hr>
+        <p>Shorthands, for v-bind and v-on</p>
+        <p :id="thingy">See the binded id</p>
+        <p @="hellomoto">Attribute not present?</p>
+        
+    </div>
+    <script src="syntax-vue.js"></script>
+</body>

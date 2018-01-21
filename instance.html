@@ -1,0 +1,23 @@
+
+<body>
+    <script src="vue.js"></script>
+
+    <div id="app">
+    <p>{{ obj.foo }}</p>
+        <!-- this will no longer update obj.foo! -->
+        <button @click="obj.foo = 'baz'">Change it</button>
+    </div>
+
+    <hr>
+
+    <div id="example">
+        {{ a }}
+    </div>
+
+    <hr>
+
+    
+
+
+    <script src="instance-vue.js"></script>
+</body>

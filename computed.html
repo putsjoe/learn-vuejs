@@ -1,0 +1,40 @@
+
+<body>
+    <script src="vue.js"></script>
+
+    <p>
+        Template expressions are really for small sections of logic. 
+        Anything larger can go into a computed property.
+    </p>
+    <div id="example1">
+        <p>Original message: {{ message }}</p>
+        <p>Computed reversed message: {{ reversedMessage }}</p>
+        <p>Ugly reversed: {{ message.split('').reverse().join('') }}</p>
+        <p>Another computed change:  {{ revshed }}</p>
+        <p>These computed properties will update when the data they depend on updates too.</p>
+    </div>
+    
+    <div id="example2">
+        <p>There is also methods: {{ messag }}  - {{ revMes() }}</p>
+        <p> 
+            However computed properties will only run on a dependency update,
+            whereas a method runs on every re-render.
+            So an expensive computation would be good for a computed property,
+            where it wouldnt be ran unnecessarily. Anything else could use a method.
+        </p>
+    </div>    
+
+    <div id="example3">
+        <p>A more generic way to watch and react to data is watch properties.</p>
+        <div id="demo">{{ fullName }}</div>
+        <div id="demo2">{{ fullName }}</div>
+        <p>The above are two seperate Vues, however the second uses a computed property
+            while the first is using two watch properties. Second is better.
+        </p>
+        
+        
+    </div>
+
+
+    <script src="computed-vue.js"></script>
+</body>
