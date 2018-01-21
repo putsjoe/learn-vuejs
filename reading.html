@@ -10,15 +10,17 @@
         
     </div>
     
-    <div id="read">
-        <button v-on:click="readit">Read</button>
-        <p>{{ reading }}</p>
-
+    <div id="reading">
+        <button v-on:click="readin">Read</button>
     </div>
 
-    <div id="example-2">
-        <!-- `greet` is the name of a method defined below -->
-        <button v-on:click="greet">Greet</button>
+    <div id="read">
+        <div style="width:50%; float:left;">
+            <p>{{ reading }}</p>
+        </div>
+        <div style="width:50%; float:left;">
+            <p>{{ portion }}</p>
+        </div>
     </div>
 
     <script src="reading-vue.js"></script>

@@ -3,6 +3,7 @@ read = new Vue({
     el: '#read',
     data: {
         reading: '',
+        portion: ''
     }
 });
 
@@ -17,28 +18,23 @@ add = new Vue({
             read.reading = add.addedtext;
         }
     },
+})
+
+reading = new Vue({
+    el: '#reading',
     methods: {
-        readit: function(event) {
-            console.log('HEllo');
+        readin: function() {
+            var processed = read.reading.split(' ');
+            
+            // Slice up array
+            var portions = [];
+            var chunk = 5;
+            while (processed.length) {
+                portions.push(processed.splice(0, chunk));
+            }
+
+            read.portion = portions;
         }
     }
 })
 
-var example2 = new Vue({
-    el: '#example-2',
-    data: {
-      name: 'Vue.js'
-    },
-    // define methods under the `methods` object
-    methods: {
-      greet: function (event) {
-        // `this` inside methods points to the Vue instance
-        alert('Hello ' + this.name + '!')
-        // `event` is the native DOM event
-        if (event) {
-          alert(event.target.tagName)
-        }
-      }
-    }
-  })
-  
