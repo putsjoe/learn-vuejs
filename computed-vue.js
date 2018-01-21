@@ -71,4 +71,34 @@ setInterval(function() {
     }
 }, 2000)
 
+var setvm = new Vue({
+    el: '#example4',
+    data: {
+        firstName: 'Bob',
+        lastName: 'Dole'
+    },
+    computed: {
+        fullName: {
+            // getter
+            get: function () {
+                return this.firstName + ' ' + this.lastName
+            },
+            // setter
+            set: function (newValue) {
+                var names = newValue.split(' ')
+                this.firstName = names[0]
+                this.lastName = names[names.length - 1]
+            }
+        }
+    },
+})
+    
+
+setInterval(function() {
+    if (setvm.firstName == 'Bob') {
+        setvm.firstName = 'BAB';
+    } else {
+        setvm.firstName = 'Bob';
+    }
+}, 2000)
 
