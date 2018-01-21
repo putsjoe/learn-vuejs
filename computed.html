@@ -41,13 +41,66 @@
         </p>    
 
     </div>
-
+    <hr>
     <div id="example5">
         <p>
-            Watchers - 
+            Watchers - Most useful when you want to perform asynchronous
+            or expensive operations in response to changing data. 
         </p>
+        <div id="watch-example" style="margin-left: 15px;">
+            <p>
+              Ask a yes/no question:
+              <input v-model="question">
+            </p>
+            <p>Response:: {{ answer }}</p>
+            <p>Using watch here allows us to perform an async operation
+                (API call), limit how many times it can be called and handle
+                states until we get the reply. This wouldnt be possible with
+                a computed property.
+            </p>
+        </div>
     </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+<script>
+    var watchExampleVM = new Vue({
+    el: '#watch-example',
+    data: {
+        question: '',
+        answer: 'I cannot give you an answer until you ask a question!'
+    },
+    watch: {
+        // whenever question changes, this function will run
+        question: function (newQuestion, oldQuestion) {
+        this.answer = 'Waiting for you to stop typing...'
+        this.getAnswer()
+        }
+    },
+    methods: {
+        // _.debounce is a function provided by lodash.
+        getAnswer: _.debounce(
+            function () {
+                if (this.question.indexOf('?') === -1) {
+                this.answer = 'Questions usually contain a question mark. ;-)'
+                return
+                }
+                this.answer = 'Thinking...'
+                var vm = this
+                axios.get('https://yesno.wtf/api')
+                .then(function (response) {
+                    vm.answer = _.capitalize(response.data.answer)
+                })
+                .catch(function (error) {
+                    vm.answer = 'Error! Could not reach the API. ' + error
+                })
+            },
+            // This is the number of milliseconds we wait for the
+            // user to stop typing.
+            500
+        )
+    }
+    })
+</script>
     <script src="computed-vue.js"></script>
 </body>
