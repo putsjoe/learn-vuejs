@@ -1,0 +1,26 @@
+
+<body>
+    
+    <script src="vue.js"></script>
+    <div id="add">
+        <p>
+            Paste in your reading text: 
+            <input v-model="addedtext">
+        </p>
+        
+    </div>
+    
+    <div id="read">
+        <button v-on:click="readit">Read</button>
+        <p>{{ reading }}</p>
+
+    </div>
+
+    <div id="example-2">
+        <!-- `greet` is the name of a method defined below -->
+        <button v-on:click="greet">Greet</button>
+    </div>
+
+    <script src="reading-vue.js"></script>
+
+</body>
