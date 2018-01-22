@@ -28,13 +28,27 @@ reading = new Vue({
             
             // Slice up array
             var portions = [];
-            var chunk = 5;
+            var chunks = 5;
             while (processed.length) {
-                portions.push(processed.splice(0, chunk));
-            }
+                portions.push(processed.splice(0, chunks));
+            };
 
-            read.portion = portions;
+            nowread(portions, wpm(chunks, 200));
         }
     }
 })
 
+function wpm(chunks, wordspm) {
+    return 1000 * (chunks / (wordspm / 60))
+};
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+  
+async function nowread(portions, speed) {
+    for (var i = 0; i < portions.length; i++) {
+        read.portion = portions[i].join(' ');
+        await sleep(speed);
+    }
+};
