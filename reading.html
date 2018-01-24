@@ -2,20 +2,22 @@
 <body>
     
     <script src="vue.js"></script>
-    <div id="add">
-        <p>
-            Paste in your reading text: 
-            <input v-model="addedtext">
-        </p>
-        
-    </div>
-    
-    <div id="reading">
-        <button v-on:click="readin">Read</button>
+    <div>
+        <div id="add">
+            Paste in your reading text:
+            <input v-on:keyup.enter="onEnterClick" v-model="addedtext">
+            <button v-on:click="readin">Read</button>
+        </div>
+        <br>
+        <div id="reading">
+            <label>Words per minute-</label><input v-model="speed_word"> |
+            <label>Characters per minute - [{{ speed_char }}]</label> |
+            <label>Avg. Word length - [{{ avg_word }}]</label>
+        </div>
     </div>
 
     <div id="read">
-        <div style="width:90%; margin-left: 1%;">
+        <div style="width:35%; margin-left: 35%; font-size:35;">
             <p>{{ portion }}</p>
         </div>
         <div style="width:90%;">
