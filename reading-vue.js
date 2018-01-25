@@ -1,10 +1,23 @@
 
+Vue.component('history-item', {
+    template: '<li>{{ historytitle }}</li>',
+    props: ['historytitle']
+});
+
+hist = new Vue({
+    el: '#history',
+    data: {
+        read_history: {},
+        history_titles: null,
+    },
+})
+
 read = new Vue({
     el: '#read',
     data: {
         reading: '',
         portion: ''
-    }
+    },
 });
 
 settings = new Vue({
@@ -34,25 +47,18 @@ add = new Vue({
             read.reading = add.addedtext;
             add.char_count = add.addedtext.replace(/ /g,'').length;
             add.word_count = add.addedtext.split(' ').filter(String).length;  
-            settings.avg_word = add.char_count / add.word_count;
+            settings.avg_word = (add.char_count / add.word_count).toFixed(2);
 
             var calc_speed_char = function () {
                 var average_word_len = settings.avg_word;
-                
-                console.log('Average word length: ' + average_word_len);
-                
                 var avg_chars_per_second = function() {
                     var avg_char_pm = settings.speed_word * average_word_len;
                     return avg_char_pm / 60
                 };
-                console.log('Chars to show: ' + avg_chars_per_second());
-                
                 return (average_word_len * settings.speed_word)
-
             };
 
-            settings.speed_char = calc_speed_char();
-            
+            settings.speed_char = calc_speed_char().toFixed(0);
             // settings.speed_char = add.char_count;
             // settings.speed_char = calc_charspeed(add.char_count, settings.speed_word);
         }
@@ -60,6 +66,7 @@ add = new Vue({
     methods: {
         onEnterClick: function() {add.readin()},
         readin: function() {
+            push_history(read.reading);
             var processed = read.reading.split(' ');
             
             // Slice up array
@@ -69,10 +76,17 @@ add = new Vue({
                 portions.push(processed.splice(0, chunks));
             };
     
-            nowread(portions, wpm(chunks, 200));
+            nowread(portions, 500);
         }
     }
 })
+
+function push_history(data) {
+    var history_title = data.substring(0, 15);
+    Vue.set(hist.read_history, history_title, data);
+    hist.history_titles = Object.keys(hist.read_history)
+    console.log(hist.history_titles);
+}
 
 function calc_charspeed(char_count, word_speed) {
     settings.speed_char = calc_charspeed(add.char_count, settings.speed_word);

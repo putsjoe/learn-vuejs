@@ -2,7 +2,7 @@
 <body>
     
     <script src="vue.js"></script>
-    <div>
+    <div style="float:left; width:47%; position:fixed;">
         <div id="add">
             Paste in your reading text:
             <input v-on:keyup.enter="onEnterClick" v-model="addedtext">
@@ -11,9 +11,17 @@
         <br>
         <div id="reading">
             <label>Words per minute-</label><input v-model="speed_word"> |
-            <label>Characters per minute - [{{ speed_char }}]</label> |
+            <label>Chars per minute - [{{ speed_char }}]</label> |
             <label>Avg. Word length - [{{ avg_word }}]</label>
         </div>
+    </div>
+
+    <div id="history" style="float:left; width:45%; margin-left: 52%; height:20%; border: solid black; padding:3px; overflow-y: auto;">
+        <ul>
+            <li
+            is="history-item" v-for="history_title in history_titles"
+            v-bind:historytitle="history_title"></li>
+        </ul>
     </div>
 
     <div id="read">
