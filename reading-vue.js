@@ -1,6 +1,6 @@
 
 Vue.component('history-item', {
-    template: '<li>{{ historytitle }}</li>',
+    template: '<li><a onclick="load_history(this.text);">{{ historytitle }}</a></li>',
     props: ['historytitle']
 });
 
@@ -26,6 +26,7 @@ settings = new Vue({
         speed_char: 0,
         speed_word: 200,
         avg_word: 0,
+        pause: false,
     },
     watch: {
         speed_word: function() {
@@ -82,34 +83,66 @@ add = new Vue({
 })
 
 function push_history(data) {
-    var history_title = data.substring(0, 15);
+    var history_title = data.substring(0, 50);
     Vue.set(hist.read_history, history_title, data);
     hist.history_titles = Object.keys(hist.read_history)
     console.log(hist.history_titles);
 }
 
-function calc_charspeed(char_count, word_speed) {
-    settings.speed_char = calc_charspeed(add.char_count, settings.speed_word);
-
-    // var a = 
-
-};
-
-function calc_wordspeed() {
-    return true;
-}
-
-function convert(chunks, wordspm) {
-    return 1000 * (chunks / (wordspm / 60))
-};
-
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
   
-async function nowread(portions, speed) {
-    for (var i = 0; i < portions.length; i++) {
-        read.portion = portions[i].join(' ');
+function nowread(portions, speed) {
+
+    async function loop(ar, indx, speed) {
+        read.portion = ar[indx].join(' ');
         await sleep(speed);
+        loop(ar, indx + 1, speed);
+    }
+    loop(portions, 0, speed)
+};
+
+// Attempts at a pause button below with help from an example.
+/*
+function achan(ar, callback) {
+    var index;
+    index = 0;
+    loop();
+    console.log(ar);
+
+    function loop() {
+        if ( index < ar.length ) {
+            console.log(ar[index])
+            read.portion = ar[index].join(' ');
+            // changeto(portions, index);
+            setTimeout(loop, 0);
+        } else {
+            callback();
+        }
+    }
+
+}
+
+function loopArrayAsync(ar, callback) {
+    var index;
+
+    index = 0;
+    loop();
+
+    function loop() {
+        if (index < ar.length) {
+            console.log(ar[index++]);
+            setTimeout(loop, 0);
+        }
+        else {
+            callback();
+        }
     }
 };
+// loopArrayAsync(a, function() {console.log('DOne');});
+
+async function changeto(portions, index) {
+    read.portion = portions[index];
+}
+*/
