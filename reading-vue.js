@@ -73,11 +73,52 @@ add = new Vue({
             // Slice up array
             var portions = [];
             var chunks = 5;
-            while (processed.length) {
-                portions.push(processed.splice(0, chunks));
-            };
-    
-            nowread(portions, 500);
+            var char_limit = 12;
+
+            // HERE
+            // Either just grab 200 words and average them out
+            // Or divide the letters by avg_word_l to get an avg_char,
+            //   Use this when displaying each word.
+
+            
+            // for (var i = 0; i < portions.length; i++) {
+                // -        read.portion = portions[i].join(' ');
+                // -        await sleep(speed);
+                
+                // Attempt at chunking words together to get an average
+            /*    var coll_len = 0;
+                wpm / 60 = w_p_sec
+                return w_p_sec * avg_w_l
+            */
+            /*
+            var coll = [];
+            for (var i=0; i < processed.length; i++) {
+                console.log('coll len - ' + coll_len);
+                console.log(coll.length);
+                // if (coll_len > 0) {
+                    // console.log('HEllo getting length')
+                coll_len = coll.map(function(w){return w.length }).reduce(function(a,b) {return a+b}, 0);
+                // }
+                console.log(coll_len);
+                console.log(processed[i].length);
+                if (coll_len + processed[i].length <= char_limit ) {
+                    console.log('Got here');
+                    coll.push(processed[i])
+                    console.log(coll);
+                } else {
+                    portions.push(coll);
+                    console.log('HEllo');
+                    console.log(coll);
+                    console.log(portions);
+                    var coll = [];
+                }
+            }
+            console.log(portions);
+            // while (processed.length) {
+                // portions.push(processed.splice(0, chunks));
+            // };
+            */
+            nowread(portions, 1000);
         }
     }
 })
@@ -86,7 +127,12 @@ function push_history(data) {
     var history_title = data.substring(0, 50);
     Vue.set(hist.read_history, history_title, data);
     hist.history_titles = Object.keys(hist.read_history)
-    console.log(hist.history_titles);
+}
+
+function load_history(text) {
+    console.log(text);
+    console.log(hist.read_history[text]);
+    add.addedtext = hist.read_history[text];
 }
 
 function sleep(ms) {
