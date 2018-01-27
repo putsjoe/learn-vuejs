@@ -67,13 +67,14 @@ add = new Vue({
     methods: {
         onEnterClick: function() {add.readin()},
         readin: function() {
+
             push_history(read.reading);
             var processed = read.reading.split(' ');
-            
-            // Slice up array
-            var portions = [];
-            var chunks = 5;
-            var char_limit = 12;
+            var word_gap = function() {
+                var a = settings.speed_word / 60;
+                return 1000 / a;
+            }
+            nowread(processed, word_gap());
 
             // HERE
             // Either just grab 200 words and average them out
