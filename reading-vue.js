@@ -117,8 +117,8 @@ add = new Vue({
             // while (processed.length) {
                 // portions.push(processed.splice(0, chunks));
             // };
-            */
             nowread(portions, 1000);
+            */
         }
     }
 })
@@ -138,15 +138,16 @@ function load_history(text) {
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-  
-function nowread(portions, speed) {
 
+function nowread(words, speed) {
     async function loop(ar, indx, speed) {
-        read.portion = ar[indx].join(' ');
-        await sleep(speed);
-        loop(ar, indx + 1, speed);
+        if (ar[indx]) {
+            read.portion = ar[indx];
+            await sleep(speed);
+            loop(ar, indx + 1, speed);
+        }
     }
-    loop(portions, 0, speed)
+    loop(words, 0, speed)
 };
 
 // Attempts at a pause button below with help from an example.
