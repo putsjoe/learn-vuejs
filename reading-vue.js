@@ -24,7 +24,7 @@ settings = new Vue({
     el: '#reading',
     data: {
         speed_char: 0,
-        speed_word: 200,
+        speed_word: 180,
         avg_word: 0,
         pause: false,
     },
