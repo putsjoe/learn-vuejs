@@ -8,11 +8,13 @@
             <textarea id="add-textarea" style="width: 30%;" v-on:keyup.enter="onEnterClick" v-model="addedtext"></textarea>
             <button style="padding:20px;" v-on:click="readin">Read</button>
             
-            <label>Word count - [{{ word_count }}]</label>
+            <label>Word count - [{{ word_count }}]</label> |
+            <label>Char count - [{{ char_count }}]</label>
         </div>
         <br>
-        <div id="reading">
+        <div id="settings">
             <label>Words per minute-</label><input v-model="speed_word"> |
+            <label>Avg. Word length - [{{ avg_word }}]</label>
         </div>
     </div>
 

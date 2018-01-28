@@ -21,7 +21,7 @@ read = new Vue({
 });
 
 settings = new Vue({
-    el: '#reading',
+    el: '#settings',
     data: {
         speed_char: 0,
         speed_word: 180,
@@ -144,7 +144,17 @@ function nowread(words, speed) {
     async function loop(ar, indx, speed) {
         if (ar[indx]) {
             read.portion = ar[indx];
-            await sleep(speed);
+
+            // If longer word, increase time its shown.
+            if (ar[indx].length > settings.avg_word) {
+                delay = speed * 1.1;
+            } else {
+                delay = speed;
+            }
+
+            // Instead could delay dependent on length.
+
+            await sleep(delay);
             loop(ar, indx + 1, speed);
         }
     }
