@@ -6,32 +6,63 @@
         <div id="add">
             Paste in your reading text:
             <textarea id="add-textarea" style="width: 30%;" v-on:keyup.enter="onEnterClick" v-model="addedtext"></textarea>
-            <button v-on:click="readin">Read</button>
+            <button style="padding:20px;" v-on:click="readin">Read</button>
+            
+            <label>Word count - [{{ word_count }}]</label>
         </div>
         <br>
         <div id="reading">
             <label>Words per minute-</label><input v-model="speed_word"> |
-            <label>Chars per minute - [{{ speed_char }}]</label> |
-            <label>Avg. Word length - [{{ avg_word }}]</label>
         </div>
     </div>
 
     <div id="history" style="float:left; width:30%; margin-left: 65%; height:20%; padding:3px; overflow-y: auto;">
-        <ul>
-            <li
-            is="history-item" v-for="history_title in history_titles"
-            v-bind:historytitle="history_title"></li>
-        </ul>
+        <!-- <ul> -->
+            <!-- <li -->
+            <!-- is="history-item" v-for="history_title in history_titles" -->
+            <!-- v-bind:historytitle="history_title"></li> -->
+        <!-- </ul> -->
     </div>
 
     <div id="read" style="margin-top: 4%; float: left; width: 99%;">
-        <div style="width:30%; height: 15%; text-align: center; margin-left: 30%; font-size:35;">
+        <div style="width:30%; height: 15%; text-align: center; margin-left: 30%; font-size:35; background-color: yellow;">
             {{ portion }}
         </div>
         <div style="width:90%;">
             <p>{{ reading }}</p>
         </div>
     </div>
+
+    <div class="grid-container">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+
+        
+
+        <div class="grid-item">3</div>  
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>  
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>  
+    </div>
+
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto;
+            background-color: #2196F3;
+            padding: 10px;
+        }
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+    </style>
 
     <script src="reading-vue.js"></script>
 
